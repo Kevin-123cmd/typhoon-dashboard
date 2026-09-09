@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全国台风实时监测大屏</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="loading">
+  <div class="ring"></div>
+  <p>正在载入台风监测数据…</p>
+</div>
+
+<div id="screen">
+
+  <!-- 顶部 -->
+  <header class="header">
+    <div class="brand">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.8"
+             stroke-linecap="round">
+          <path d="M12 2 C17 2 21 6 21 11 C21 14.5 19 17.5 16 19 C15 19.6 14 20 14 21.2 C14 21.8 13.6 22 13 22 C13.6 21 13 20.4 12 20.4 C11 20.4 10.4 21 11 22 C10.4 22 10 21.8 10 21.2 C10 20 9 19.6 8 19 C5 17.5 3 14.5 3 11 C3 6 7 2 12 2 Z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>全国台风实时监测中心</h1>
+        <div class="sub">NATIONAL TYPHOON REAL-TIME MONITORING · NMC</div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="hlive"><i></i><span id="liveText">实时数据</span></div>
+      <div class="hstat">
+        <div class="k">数据更新</div>
+        <div class="v accent" id="updateTime">--</div>
+      </div>
+      <div class="hstat">
+        <div class="k">系统时间</div>
+        <div class="v" id="clock">--:--:--</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体 -->
+  <div class="main">
+
+    <!-- 左栏 -->
+    <div class="col">
+      <section class="card" style="flex:none">
+        <div class="card-hd"><span class="bar"></span><h2>态势概览</h2>
+          <span class="tail" id="yearTag">--</span></div>
+        <div class="card-bd">
+          <div class="metrics">
+            <div class="metric c1">
+              <div class="k">活跃台风</div>
+              <div class="v"><span id="mActive">0</span><span class="u">个</span></div>
+            </div>
+            <div class="metric c2">
+              <div class="k">年度编号</div>
+              <div class="v"><span id="mTotal">0</span><span class="u">个</span></div>
+            </div>
+            <div class="metric c3">
+              <div class="k">年度最强</div>
+              <div class="v"><span id="mMaxWind">0</span><span class="u">m/s</span></div>
+            </div>
+            <div class="metric c4">
+              <div class="k">影响省份</div>
+              <div class="v"><span id="mProv">0</span><span class="u">个</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="flex:1">
+        <div class="card-hd"><span class="bar"></span><h2>台风列表</h2>
+          <span class="tail">点击切换</span></div>
+        <div class="card-bd">
+          <div class="ty-list" id="tyList"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 中栏：地图 -->
+    <div class="col">
+      <section class="card map-card">
+        <div class="card-hd"><span class="bar"></span><h2>台风路径与影响范围监测</h2>
+          <span class="tail">滚轮缩放 · 拖拽平移</span></div>
+        <div class="map-wrap">
+          <div id="map"></div>
+          <div class="map-tools">
+            <button class="tool" id="btnReset">重置视野</button>
+            <button class="tool" id="btnPlay">路径回放</button>
+            <button class="tool on" id="btnCircle">风圈</button>
+            <button class="tool on" id="btnForecast">预报路径</button>
+          </div>
+          <div class="map-legend">
+            <div class="t">强度等级图例</div>
+            <ul id="legend"></ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 右栏 -->
+    <div class="col">
+      <section class="card" style="flex:none">
+        <div class="ty-head" id="tyHead"></div>
+        <div class="card-bd">
+          <div class="params" id="tyParams"></div>
+        </div>
+      </section>
+
+      <section class="card" style="flex:none">
+        <div class="card-hd"><span class="bar"></span><h2>影响区域</h2></div>
+        <div class="card-bd"><div class="chips" id="tyImpact"></div></div>
+      </section>
+
+      <section class="card" style="flex:none">
+        <div class="card-hd"><span class="bar"></span><h2>路径预报</h2>
+          <span class="tail" id="fcAgency">--</span></div>
+        <div class="card-bd" style="max-height:186px;overflow-y:auto">
+          <table class="fc-table" id="fcTable"></table>
+        </div>
+      </section>
+
+      <section class="card" style="flex:1">
+        <div class="card-hd"><span class="bar"></span><h2>强度演变</h2>
+          <span class="tail">风速 / 气压</span></div>
+        <div class="card-bd" style="padding:6px 8px"><div id="trend"></div></div>
+      </section>
+    </div>
+
+  </div>
+</div>
+
+<script src="vendor/echarts.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
