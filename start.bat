@@ -22,6 +22,7 @@ echo       关闭此窗口即可停止服务
 echo.
 
 REM 延迟约2秒后自动打开浏览器（确保服务已启动，避免"拒绝连接"）
+REM 版本：2026-09-11 CRLF 实测通过版
 ping -n 3 127.0.0.1 >nul
 start "" "http://localhost:8080"
 
