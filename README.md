@@ -18,8 +18,11 @@ typhoon-dashboard/
 │   └── echarts.min.js    # 本地化的 ECharts 5.5.1
 ├── scripts/
 │   ├── fetch_typhoon.py  # 数据抓取脚本
+│   ├── auto_update.py    # 自动更新入口（计划任务调用，写日志）
 │   ├── query_region.py   # 省级影响查询
 │   └── serve_hidden.py   # 无控制台静态服务（快捷方式调用）
+├── logs/
+│   └── fetch.log         # 定时抓取日志（auto_update.py 写入）
 ├── open_dashboard.vbs    # 无黑框启动器：起服务 + 开浏览器
 ├── preview.png            # 大屏效果预览图
 ├── start.bat             # Windows 一键启动（自动抓数据 + 起 HTTP 服务）
@@ -83,15 +86,19 @@ bash start.sh
 | STY | 强台风 | 41.5 |
 | SuperTY | 超强台风 | 51.0 |
 
-## 自动化任务
+## 自动化任务（Windows 计划任务）
 
 已配置每日自动刷新：
 
 - **频率**：每天 2 次，北京时间 08:30 和 12:30
-- **任务 ID**：`automation-1788415581186`
-- **行为**：运行抓取脚本并把结果摘要报告给用户
+- **任务名**：`TyphoonFetch-0830` / `TyphoonFetch-1230`
+- **行为**：用 `pythonw` 静默运行 `scripts/auto_update.py` → 调用 `fetch_typhoon.py` 抓取最新数据，并把退出码、过程输出、结果摘要写入 `logs/fetch.log`
+- **管理方式**：
+  - 图形界面：`taskschd.msc`（任务计划程序）中查看 / 禁用 / 删除
+  - 命令行：`schtasks /Query /TN "TyphoonFetch-*" /V`
+  - 手动抓取：双击 `start.bat` 或运行 `python scripts/fetch_typhoon.py`
 
-可在 WorkBuddy 的「自动化」面板查看 / 暂停 / 调整。
+> 说明：本项目此前通过 WorkBuddy 自动化触发更新，现已完全迁移为本地 Windows 计划任务 + 脚本方案，WorkBuddy 相关目录与任务已全部移除。
 
 ## 大屏交互
 
