@@ -29,7 +29,7 @@ typhoon-dashboard/
 └── start.sh              # macOS / Linux 一键启动
 ```
 
-> 项目路径：`D:\PycharmProjects\typhoon-dashboard`
+> 项目路径：`D:\typhoon-dashboard`
 > 用 PyCharm 打开该目录即可直接编辑；运行配置指向 `scripts/fetch_typhoon.py`。
 
 ## 启动
@@ -97,8 +97,6 @@ bash start.sh
   - 图形界面：`taskschd.msc`（任务计划程序）中查看 / 禁用 / 删除
   - 命令行：`schtasks /Query /TN "TyphoonFetch-*" /V`
   - 手动抓取：双击 `start.bat` 或运行 `python scripts/fetch_typhoon.py`
-
-> 说明：本项目此前通过 WorkBuddy 自动化触发更新，现已完全迁移为本地 Windows 计划任务 + 脚本方案，WorkBuddy 相关目录与任务已全部移除。
 
 ## 大屏交互
 
